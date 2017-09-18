@@ -15,8 +15,7 @@ describe('archivePast tasks', function () {
         address: 'CD219642'
       }, {
         address: 'CD23A62C'
-      }],
-      throttle_seconds: 10
+      }]
     }
   }
 
@@ -48,23 +47,6 @@ describe('archivePast tasks', function () {
       expect(machine.model).to.have.nested.property('source.address', 'CD219642')
       expect(machine.model).to.have.nested.property('state.source_index', 1)
     })
-  })
-
-  it('should throttle', function () {
-    return machine.clear().start().then(success => {
-      expect(success).to.be.true
-      expect(machine.model).to.have.nested.property('initReady', false)
-      expect(machine.model).to.have.nested.property('selectReady', false)
-      expect(machine.model).to.have.nested.property('checkReady', false)
-      expect(machine.model).to.have.nested.property('extractReady', false)
-      expect(machine.model).to.have.nested.property('archiveReady', false)
-      expect(machine.model).to.have.nested.property('state.source_index', 1)
-    })
-  })
-
-  it('should wait for 10 seconds', function () {
-    // Wait for throttle period
-    return new Promise(resolve => setTimeout(resolve, 10000))
   })
 
   it('should run for CD23A62C', function () {

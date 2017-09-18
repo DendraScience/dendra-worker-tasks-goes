@@ -8,14 +8,10 @@ const moment = require('moment');
 exports.default = {
   init: {
     clear(m) {
-      m.bounds = null;
-      m.source = null;
+      m.now = m.bounds = m.source = null;
     },
     guard(m) {
-      const elapsed = m.machineStartedAt - m.machineStoppedAt;
-      const throttle = (m.state.throttle_seconds || 600) * 1000;
-
-      return !m.bounds && (elapsed < 0 || elapsed > throttle) && m.state.sources && m.state.sources.length > 0;
+      return !m.now && m.state.sources && m.state.sources.length > 0;
     },
     execute() {
       return true;
@@ -24,9 +20,10 @@ exports.default = {
       const index = m.state.source_index | 0;
       const source = m.state.sources[index];
 
+      m.now = moment().utc();
       m.bounds = {
-        start: moment(m.machineStartedAt).utc().startOf('d').subtract(30, 'd'),
-        end: moment(m.machineStartedAt).utc().startOf('d').subtract(1, 'd')
+        start: m.now.clone().startOf('d').subtract(30, 'd'),
+        end: m.now.clone().startOf('d').subtract(1, 'd')
       };
       m.source = source;
       m.state.source_index = (index + 1) % m.state.sources.length;
