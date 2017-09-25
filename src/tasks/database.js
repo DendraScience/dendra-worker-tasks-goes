@@ -6,12 +6,13 @@ export default {
       m.setupReady
   },
   execute (m) {
+    const influxUrl = m.$app.get('apis').influxDB.url
     const requestOpts = {
       method: 'POST',
       qs: {
         q: `CREATE DATABASE "${m.source.load.database}"`
       },
-      url: `${m.scratch.influxDB.url}/query`
+      url: `${influxUrl}/query`
     }
 
     return new Promise((resolve, reject) => {

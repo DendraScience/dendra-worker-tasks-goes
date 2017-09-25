@@ -68,33 +68,32 @@ export default {
       checks.push(checkArchive)
 
       /*
-        Optionally look for points in InfluxDB.
+        Look for points in InfluxDB.
        */
-      if (m.source.load && m.source.load.database) {
-        const requestOpts = {
-          method: 'POST',
-          qs: {
-            db: m.source.load.database,
-            q: `SELECT COUNT("start_time") FROM "message_info" WHERE "address" = '${address}' AND time >= '${startTime}' AND time < '${endTime}'`
-          },
-          url: `${m.scratch.influxDB.url}/query`
-        }
-
-        const influxCheck = new Promise((resolve, reject) => {
-          request(requestOpts, (err, response) => err ? reject(err) : resolve(response))
-        }).then(response => {
-          if (response.statusCode !== 200) throw new Error(`Non-success status code ${response.statusCode}`)
-
-          return JSON.parse(response.body)
-        }).then(body => {
-          try {
-            return body.results[0].series[0].values[0][1]
-          } catch (e) {
-            return 0
-          }
-        })
-        checks.push(influxCheck)
+      const influxUrl = m.$app.get('apis').influxDB.url
+      const requestOpts = {
+        method: 'POST',
+        qs: {
+          db: m.source.load.database,
+          q: `SELECT COUNT("start_time") FROM "message_info" WHERE "address" = '${address}' AND time >= '${startTime}' AND time < '${endTime}'`
+        },
+        url: `${influxUrl}/query`
       }
+
+      const influxCheck = new Promise((resolve, reject) => {
+        request(requestOpts, (err, response) => err ? reject(err) : resolve(response))
+      }).then(response => {
+        if (response.statusCode !== 200) throw new Error(`Non-success status code ${response.statusCode}`)
+
+        return JSON.parse(response.body)
+      }).then(body => {
+        try {
+          return body.results[0].series[0].values[0][1]
+        } catch (e) {
+          return 0
+        }
+      })
+      checks.push(influxCheck)
 
       return Promise.all(checks)
     },

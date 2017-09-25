@@ -10,6 +10,7 @@ exports.default = {
     return !m.loadError && !m.loadReady && m.scratch.extractedData && m.transformIndex === m.scratch.extractedData.length && m.scratch.transformBuf && m.scratch.transformBuf.length > 0 && m.databaseReady;
   },
   execute(m) {
+    const influxUrl = m.$app.get('apis').influxDB.url;
     const requestOpts = {
       body: m.scratch.transformBuf,
       method: 'POST',
@@ -17,7 +18,7 @@ exports.default = {
         db: m.source.load.database,
         precision: 'ms'
       },
-      url: `${m.scratch.influxDB.url}/write`
+      url: `${influxUrl}/write`
     };
 
     return new Promise((resolve, reject) => {
