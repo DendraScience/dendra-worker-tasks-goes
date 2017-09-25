@@ -2,7 +2,7 @@
  * Tests for archiveRecent tasks
  */
 
-describe('archiveRecent tasks', function () {
+describe.skip('archiveRecent tasks', function () {
   this.timeout(60000)
 
   const model = {

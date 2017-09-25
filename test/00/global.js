@@ -21,6 +21,12 @@ app.set('connections', {
   }
 })
 
+app.set('urls', {
+  influxDB: {
+    url: 'http://localhost:8086'
+  }
+})
+
 global.assert = chai.assert
 global.expect = chai.expect
 global.main = {
