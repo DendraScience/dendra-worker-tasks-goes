@@ -21,7 +21,7 @@ app.set('connections', {
   }
 })
 
-app.set('urls', {
+app.set('apis', {
   influxDB: {
     url: 'http://localhost:8086'
   }

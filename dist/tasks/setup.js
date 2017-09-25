@@ -14,7 +14,7 @@ exports.default = {
   },
   assign(m) {
     // Get InfluxDB settings for loading
-    m.scratch.influxDB = m.$app.get('urls').influxDB;
+    m.scratch.influxDB = m.$app.get('apis').influxDB;
 
     // Create a MomentEditor instance for deriving timestamps
     m.scratch.timeEditor = new MomentEditor(m.source.transform.time_edit);
