@@ -7,14 +7,16 @@ const util = require('util')
 describe('archiveAndLoadPast tasks', function () {
   this.timeout(60000)
 
+  const now = new Date()
   const model = {
     $app: main.app,
-    _id: 'archiveAndLoadPast',
+    key: 'archiveAndLoadPast',
+    private: {},
     props: {},
     state: {
       _id: 'taskMachine-archiveAndLoadPast-current',
       sources: [{
-        address: 'CD219642',
+        address: 'BEC01EF8',
         description: 'Granites',
         query: {
           decode_columns: '', // Decode with default column names
@@ -29,7 +31,9 @@ describe('archiveAndLoadPast tasks', function () {
           database: 'station_granites',
           measurement: 'logger_data'
         }
-      }]
+      }],
+      created_at: now,
+      updated_at: now
     }
   }
 
@@ -50,11 +54,12 @@ describe('archiveAndLoadPast tasks', function () {
     expect(machine).to.have.property('model')
   })
 
-  it('should run for CD219642', function () {
+  it('should run for BEC01EF8', function () {
     model.scratch = {}
 
     return machine.clear().start().then(success => {
       expect(success).to.be.true
+
       expect(machine.model).to.have.property('boundsReady', true)
       expect(machine.model).to.have.property('sourceReady', true)
       expect(machine.model).to.have.property('setupReady', true)
@@ -65,7 +70,7 @@ describe('archiveAndLoadPast tasks', function () {
       expect(machine.model).to.have.property('transformReady', true)
       expect(machine.model).to.have.property('databaseReady', true)
       expect(machine.model).to.have.property('loadReady', true)
-      expect(machine.model).to.have.nested.property('source.address', 'CD219642')
+      expect(machine.model).to.have.nested.property('source.address', 'BEC01EF8')
       expect(machine.model).to.have.nested.property('state.source_index', 0)
     })
   })

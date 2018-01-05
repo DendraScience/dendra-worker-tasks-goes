@@ -9,8 +9,8 @@ tm.configure({
   logger: console
 })
 
-const JSON_ARCHIVE_API_URL = 'http://localhost:3033'
-const NOAA_GOES_API_URL = 'http://128.32.109.75/_services/noaa/goes/api/v1'
+const JSON_ARCHIVE_API_URL = 'http://localhost:8080/_services/archive/json/api/v1'
+const NOAA_GOES_API_URL = 'http://localhost:8080/_services/noaa/goes/api/v1'
 
 app.set('connections', {
   jsonArchive: {

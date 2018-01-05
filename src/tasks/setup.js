@@ -18,9 +18,9 @@ export default {
 
     // Concat the leftmost part of the Line Protocol string for loading
     const parts = [m.source.load.measurement]
-    if (m.source.load.keys) {
-      // Allow for static keys to be specified for every point
-      Object.keys(m.source.load.keys).forEach(key => parts.push(`${key}=${m.source.load.keys[key]}`))
+    if (m.source.load.tags) {
+      // Allow for static tags to be specified for every point
+      Object.keys(m.source.load.tags).forEach(key => parts.push(`${key}=${m.source.load.tags[key]}`))
     }
     m.scratch.measurementTagSet = parts.join(',')
   }

@@ -1,6 +1,6 @@
 {
   "name": "@dendra-science/worker-tasks-goes",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Worker tasks for extracting and archiving GOES data.",
   "license": "BSD-2-Clause-FreeBSD",
   "author": "J. Scott Smith <scott@newleafsolutionsinc.com>",
@@ -24,8 +24,8 @@
   },
   "dependencies": {
     "@dendra-science/utils-moment": "0.0.1",
-    "moment": "^2.18.1",
-    "request": "^2.82.0"
+    "moment": "^2.20.1",
+    "request": "^2.83.0"
   },
   "devDependencies": {
     "@dendra-science/task-machine": "0.0.2",
@@ -33,15 +33,15 @@
     "babel-core": "^6.26.0",
     "babel-preset-es2015-node6": "^0.4.0",
     "chai": "^4.1.1",
-    "eslint": "^4.4.1",
+    "eslint": "^4.14.0",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "feathers": "^2.2.0",
-    "feathers-hooks": "^2.0.2",
-    "feathers-rest": "^1.8.0",
+    "feathers": "^2.2.4",
+    "feathers-hooks": "^2.1.2",
+    "feathers-rest": "^1.8.1",
     "mocha": "^3.5.0"
   },
   "optionalDependencies": {
