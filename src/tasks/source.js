@@ -1,15 +1,27 @@
-export default {
+/**
+ * Determine and assign source properties in model after the sources are ready.
+ */
+
+module.exports = {
   clear (m) {
-    m.source = null
+    delete m.source
+    delete m.sourceKey
   },
+
   guard (m) {
-    return !m.sourceError && !m.source &&
-      m.state.sources && (m.state.sources.length > 0)
+    return !m.sourceError &&
+      !m.source &&
+      m.sources &&
+      (m.sourcesTs === m.versionTs)
   },
+
   execute () { return true },
-  assign (m) {
-    const index = m.state.source_index | 0
-    m.source = m.state.sources[index]
-    m.state.source_index = (index + 1) % m.state.sources.length
+
+  assign (m, res, {logger}) {
+    m.sourceIndex = (typeof m.sourceIndex === 'number') ? (m.sourceIndex + 1) % m.sourceKeys.length : 0
+    m.sourceKey = m.sourceKeys[m.sourceIndex]
+    m.source = m.sources[m.sourceKey]
+
+    logger.info('Source ready', {sourceKey: m.sourceKey})
   }
 }
