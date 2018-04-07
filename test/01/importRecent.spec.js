@@ -7,8 +7,6 @@ describe('importRecent tasks', function () {
 
   const now = new Date()
   const model = {
-    key: 'importRecent',
-    private: {},
     props: {},
     state: {
       _id: 'taskMachine-importRecent-current',
@@ -19,7 +17,10 @@ describe('importRecent tasks', function () {
       sources: [
         {
           context: {
-            some_value: 'value'
+            org_slug: 'ucnrs',
+            some_value: 'value',
+            station: 'test_burns',
+            table: 'TenMin'
           },
           address: 'BEC025B0',
           description: 'Burns',
@@ -27,7 +28,10 @@ describe('importRecent tasks', function () {
         },
         {
           context: {
-            some_value: 'value'
+            org_slug: 'ucnrs',
+            some_value: 'value',
+            station: 'test_chickering',
+            table: 'TenMin'
           },
           address: 'BEC0035C',
           description: 'Chickering',
@@ -49,7 +53,7 @@ describe('importRecent tasks', function () {
     enumerable: false,
     configurable: false,
     writable: false,
-    value: 'importRecords'
+    value: 'importRecent'
   })
   Object.defineProperty(model, 'private', {
     enumerable: false,
@@ -80,7 +84,7 @@ describe('importRecent tasks', function () {
   it('should import', function () {
     tasks = require('../../dist').importRecent
 
-    expect(tasks).to.have.property('ddsClient')
+    expect(tasks).to.have.property('sources')
   })
 
   it('should create machine', function () {
@@ -192,8 +196,8 @@ describe('importRecent tasks', function () {
       // Verify criteria dates
       expect(model).to.have.nested.property('criteriaDates.since')
       expect(model).to.have.nested.property('criteriaDates.until')
-      assert.equal(model.criteriaDates.since.valueOf(), criteriaDatesBurns.since.valueOf() + 24 * 60 * 60 * 1000)
-      assert.equal(model.criteriaDates.until.valueOf(), criteriaDatesBurns.until.valueOf() + 24 * 60 * 60 * 1000)
+      assert.isAbove(model.criteriaDates.since.valueOf(), criteriaDatesBurns.since.valueOf())
+      assert.isAbove(model.criteriaDates.until.valueOf(), criteriaDatesBurns.until.valueOf())
     })
   })
 
@@ -227,8 +231,8 @@ describe('importRecent tasks', function () {
       // Verify criteria dates
       expect(model).to.have.nested.property('criteriaDates.since')
       expect(model).to.have.nested.property('criteriaDates.until')
-      assert.equal(model.criteriaDates.since.valueOf(), criteriaDatesChickering.since.valueOf() + 24 * 60 * 60 * 1000)
-      assert.equal(model.criteriaDates.until.valueOf(), criteriaDatesChickering.until.valueOf() + 24 * 60 * 60 * 1000)
+      assert.isAbove(model.criteriaDates.since.valueOf(), criteriaDatesChickering.since.valueOf())
+      assert.isAbove(model.criteriaDates.until.valueOf(), criteriaDatesChickering.until.valueOf())
     })
   })
 })

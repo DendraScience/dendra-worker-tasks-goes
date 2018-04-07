@@ -11,7 +11,6 @@ module.exports = {
   guard (m) {
     return !m.sourceError &&
       !m.source &&
-      m.sources &&
       (m.sourcesTs === m.versionTs)
   },
 

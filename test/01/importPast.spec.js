@@ -7,8 +7,6 @@ describe('importPast tasks', function () {
 
   const now = new Date()
   const model = {
-    key: 'importPast',
-    private: {},
     props: {},
     state: {
       _id: 'taskMachine-importPast-current',
@@ -19,7 +17,10 @@ describe('importPast tasks', function () {
       sources: [
         {
           context: {
-            some_value: 'value'
+            org_slug: 'ucnrs',
+            some_value: 'value',
+            station: 'test_burns',
+            table: 'TenMin'
           },
           address: 'BEC025B0',
           description: 'Burns',
@@ -27,7 +28,10 @@ describe('importPast tasks', function () {
         },
         {
           context: {
-            some_value: 'value'
+            org_slug: 'ucnrs',
+            some_value: 'value',
+            station: 'test_chickering',
+            table: 'TenMin'
           },
           address: 'BEC0035C',
           description: 'Chickering',
@@ -49,7 +53,7 @@ describe('importPast tasks', function () {
     enumerable: false,
     configurable: false,
     writable: false,
-    value: 'importRecords'
+    value: 'importPast'
   })
   Object.defineProperty(model, 'private', {
     enumerable: false,
@@ -80,7 +84,7 @@ describe('importPast tasks', function () {
   it('should import', function () {
     tasks = require('../../dist').importPast
 
-    expect(tasks).to.have.property('ddsClient')
+    expect(tasks).to.have.property('sources')
   })
 
   it('should create machine', function () {

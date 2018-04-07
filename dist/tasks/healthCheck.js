@@ -20,7 +20,7 @@ module.exports = {
       logger.info('DDS client disconnecting');
 
       return m.private.ddsClient.disconnect().catch(err => {
-        logger.info('DDS client disconnect error', err);
+        logger.error('DDS client disconnect error', err);
         throw err;
       });
     }

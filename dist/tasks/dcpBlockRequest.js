@@ -15,22 +15,25 @@ module.exports = {
     return !m.dcpBlockRequestError && m.private.ddsClient && m.private.ddsClient.isConnected && !m.dcpBlockResponse && m.ddsCriteriaResponse;
   },
 
-  execute(m, { logger }) {
+  async execute(m, { logger }) {
     const client = m.private.ddsClient;
 
     logger.info('DDS client sending block request');
 
-    return client.request(dds.types.IdDcpBlockExt).then(res => {
-      return res.data();
-    }).then(data => {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    try {
+      const res = await client.request(dds.types.IdDcpBlockExt);
+      const data = await res.data();
       const d = data[0];
+
       if (d && d.serverCode) throw new Error(`Server error (${d.serverCode}): ${d.explanation}`);
 
       return data;
-    }).catch(err => {
+    } catch (err) {
       logger.error('DDS client block request error', err);
       throw err;
-    });
+    }
   },
 
   assign(m, res, { logger }) {

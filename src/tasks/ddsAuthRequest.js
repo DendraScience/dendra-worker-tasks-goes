@@ -11,23 +11,28 @@ module.exports = {
       !m.ddsAuthResponse
   },
 
-  execute (m, {logger}) {
-    const cfg = m.$app.get('clients').dds
+  async execute (m, {logger}) {
+    const cfg = Object.assign({
+      auth: {}
+    }, m.$app.get('clients').dds, m.props.dds)
     const client = m.private.ddsClient
 
     logger.info('DDS client authenticating')
 
-    return client.request(dds.types.IdAuthHello, cfg.auth).then(res => {
-      return res.data()
-    }).then(data => {
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    try {
+      const res = await client.request(dds.types.IdAuthHello, cfg.auth)
+      const data = await res.data()
       const d = data[0]
+
       if (d && d.serverCode) throw new Error(`Server error (${d.serverCode}): ${d.explanation}`)
 
       return data
-    }).catch(err => {
+    } catch (err) {
       logger.error('DDS client auth error', err)
       throw err
-    })
+    }
   },
 
   assign (m, res, {logger}) {

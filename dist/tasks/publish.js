@@ -6,25 +6,26 @@
 
 const moment = require('moment');
 
-async function publish({ logger, m, message, domsatSeq, source, stan }) {
-  const subject = source.pub_to_subject;
-
-  logger.info('Publishing', { domsatSeq, subject });
-
+async function processItem({ context, domsatSeq, logger, message, pubSubject, stan }) {
   try {
+    /*
+      Prepare outbound message and publish.
+     */
+
     const msgStr = JSON.stringify({
-      context: Object.assign({
+      context: Object.assign({}, context, {
         imported_at: new Date()
-      }, source.context),
+      }),
       payload: message // DOMSAT header and DCP msg body
     });
+
     const guid = await new Promise((resolve, reject) => {
-      stan.publish(subject, msgStr, (err, guid) => err ? reject(err) : resolve(guid));
+      stan.publish(pubSubject, msgStr, (err, guid) => err ? reject(err) : resolve(guid));
     });
 
-    logger.info('Published', { domsatSeq, guid, subject });
+    logger.info('Published', { domsatSeq, pubSubject, guid });
   } catch (err) {
-    logger.error('Publish error', { domsatSeq, err, subject });
+    logger.error('Processing error', { domsatSeq, err, message });
   }
 }
 
@@ -40,6 +41,10 @@ module.exports = {
   async execute(m, { logger }) {
     const { source } = m;
     const { stan } = m.private;
+    const {
+      context,
+      pub_to_subject: pubSubject
+    } = source;
 
     let lastMessageTs = moment(0).utc();
 
@@ -48,7 +53,7 @@ module.exports = {
       const { domsatSeq, message } = dcpMsg;
       const { header } = message;
 
-      await publish({ logger, m, message, domsatSeq, source, stan });
+      await processItem({ context, domsatSeq, logger, message, pubSubject, stan });
 
       if (header) {
         const messageTs = moment(header.timeDate).utc();

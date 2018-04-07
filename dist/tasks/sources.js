@@ -12,7 +12,7 @@ module.exports = {
   execute(m) {
     return m.state.sources.reduce((sources, src) => {
       if (src.address) {
-        const sourceKey = `${src.address}`;
+        const sourceKey = `${src.address.replace(/\W/g, '_')}`;
         const source = Object.assign({}, m.state.source_defaults, src);
 
         if (source.pub_to_subject) sources[sourceKey] = source;
@@ -29,6 +29,6 @@ module.exports = {
     m.sources = res;
     m.sourcesTs = m.versionTs;
 
-    logger.info('Sources ready');
+    logger.info('Sources ready', { sourceKeys: m.sourceKeys });
   }
 };

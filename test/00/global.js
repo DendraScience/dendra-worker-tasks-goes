@@ -19,7 +19,7 @@ app.set('clients', {
     opts: {}
   },
   stan: {
-    client: 'test-client',
+    client: 'test-goes-{key}',
     cluster: 'test-cluster',
     opts: {
       maxPubAcksInflight: 3,

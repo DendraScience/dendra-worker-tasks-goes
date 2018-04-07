@@ -20,7 +20,7 @@ module.exports = {
 
     return {
       start: now.clone().startOf('d').subtract(1, 'd'),
-      end: now.clone().startOf('h').subtract(1, 'h')
+      end: now.clone().startOf('d').add(1, 'd')
     }
   },
 

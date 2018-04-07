@@ -17,9 +17,11 @@ module.exports = {
   },
 
   execute (m) {
-    const cfg = m.$app.get('clients').dds
+    const cfg = Object.assign({
+      opts: {}
+    }, m.$app.get('clients').dds, m.props.dds)
 
-    return new dds.DDSClient(cfg.opts || {})
+    return new dds.DDSClient(cfg.opts)
   },
 
   assign (m, res, {logger}) {

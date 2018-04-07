@@ -11,7 +11,7 @@ module.exports = {
   },
 
   guard(m) {
-    return !m.sourceError && !m.source && m.sources && m.sourcesTs === m.versionTs;
+    return !m.sourceError && !m.source && m.sourcesTs === m.versionTs;
   },
 
   execute() {
