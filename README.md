@@ -1,11 +1,11 @@
 # Dendra Worker GOES Tasks
 
-Dendra Worker tasks for archiving past and recent GOES messages.
+Dendra Worker tasks for importing past and recent GOES messages.
 
 
 ## Instructions
 
-1. Be sure you have Node version 6.11.x. If you’re using nvm, you may need to `nvm use 6.11`.
+1. Be sure you have Node version 8.7.x. If you’re using nvm, you may need to `nvm use 8.7`.
 
 2. Clone this repo.
 

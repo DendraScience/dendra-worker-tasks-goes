@@ -1,5 +1,5 @@
 /**
- * Worker tasks for extracting and archiving GOES data.
+ * Worker tasks for importing GOES data.
  *
  * @author J. Scott Smith
  * @license BSD-2-Clause-FreeBSD
@@ -7,7 +7,7 @@
  */
 
 // Named exports for convenience
-export { default as archiveAndLoadPast } from './archiveAndLoadPast'
-export { default as archiveAndLoadRecent } from './archiveAndLoadRecent'
-export { default as archivePast } from './archivePast'
-export { default as archiveRecent } from './archiveRecent'
+module.exports = {
+  importPast: require('./importPast'),
+  importRecent: require('./importRecent')
+}
