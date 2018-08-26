@@ -3,7 +3,7 @@
  */
 
 describe('importPast tasks', function () {
-  this.timeout(120000)
+  this.timeout(180000)
 
   const now = new Date()
   const model = {
