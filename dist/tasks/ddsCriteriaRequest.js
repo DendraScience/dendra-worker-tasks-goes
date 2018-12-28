@@ -37,7 +37,7 @@ module.exports = {
   },
 
   assign(m, res, { logger }) {
-    m.healthCheckTs = new Date();
+    m.healthCheckTs = new Date().getTime();
     m.ddsCriteriaResponse = res;
 
     logger.info('DDS client sent criteria');

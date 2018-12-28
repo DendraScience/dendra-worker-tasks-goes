@@ -1,5 +1,4 @@
 module.exports = {
-  bookmark: require('./tasks/past/bookmark'),
   bounds: require('./tasks/past/bounds'),
   criteriaDates: require('./tasks/past/criteriaDates'),
   dcpBlockRequest: require('./tasks/dcpBlockRequest'),
@@ -10,6 +9,7 @@ module.exports = {
   ddsCriteriaRequest: require('./tasks/ddsCriteriaRequest'),
   healthCheck: require('./tasks/healthCheck'),
   publish: require('./tasks/publish'),
+  saveBookmarks: require('./tasks/past/saveBookmarks'),
   source: require('./tasks/source'),
   sources: require('./tasks/sources'),
   stan: require('./tasks/stan'),

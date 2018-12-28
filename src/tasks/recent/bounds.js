@@ -24,7 +24,7 @@ module.exports = {
     }
   },
 
-  assign (m, res, {logger}) {
+  assign (m, res, { logger }) {
     m.bounds = res
 
     logger.info('Bounds ready', res)

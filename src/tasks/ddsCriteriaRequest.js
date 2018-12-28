@@ -15,7 +15,7 @@ module.exports = {
       !m.ddsCriteriaResponse && m.ddsCriteria && m.healthCheckReady
   },
 
-  async execute (m, {logger}) {
+  async execute (m, { logger }) {
     const client = m.private.ddsClient
 
     logger.info('DDS client sending criteria')
@@ -36,8 +36,8 @@ module.exports = {
     }
   },
 
-  assign (m, res, {logger}) {
-    m.healthCheckTs = new Date()
+  assign (m, res, { logger }) {
+    m.healthCheckTs = (new Date()).getTime()
     m.ddsCriteriaResponse = res
 
     logger.info('DDS client sent criteria')

@@ -16,11 +16,11 @@ module.exports = {
 
   execute () { return true },
 
-  assign (m, res, {logger}) {
+  assign (m, res, { logger }) {
     m.sourceIndex = (typeof m.sourceIndex === 'number') ? (m.sourceIndex + 1) % m.sourceKeys.length : 0
     m.sourceKey = m.sourceKeys[m.sourceIndex]
     m.source = m.sources[m.sourceKey]
 
-    logger.info('Source ready', {sourceKey: m.sourceKey})
+    logger.info('Source ready', { sourceKey: m.sourceKey })
   }
 }

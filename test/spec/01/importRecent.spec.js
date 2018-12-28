@@ -1,15 +1,15 @@
 /**
- * Tests for importPast tasks
+ * Tests for importRecent tasks
  */
 
-describe('importPast tasks', function () {
+describe('importRecent tasks', function () {
   this.timeout(180000)
 
   const now = new Date()
   const model = {
     props: {},
     state: {
-      _id: 'taskMachine-importPast-current',
+      _id: 'taskMachine-importRecent-current',
       health_check_threshold: 1200,
       source_defaults: {
         some_default: 'default'
@@ -24,7 +24,7 @@ describe('importPast tasks', function () {
           },
           address: 'BEC025B0',
           description: 'Burns',
-          pub_to_subject: 'goes.import.v1.out'
+          pub_to_subject: 'goes.importRecent.out'
         },
         {
           context: {
@@ -35,7 +35,7 @@ describe('importPast tasks', function () {
           },
           address: 'BEC0035C',
           description: 'Chickering',
-          pub_to_subject: 'goes.import.v1.out'
+          pub_to_subject: 'goes.importRecent.out'
         }
       ],
       created_at: now,
@@ -53,7 +53,7 @@ describe('importPast tasks', function () {
     enumerable: false,
     configurable: false,
     writable: false,
-    value: 'importPast'
+    value: 'importRecent'
   })
   Object.defineProperty(model, 'private', {
     enumerable: false,
@@ -82,7 +82,7 @@ describe('importPast tasks', function () {
   })
 
   it('should import', function () {
-    tasks = require('../../dist').importPast
+    tasks = require('../../../dist').importRecent
 
     expect(tasks).to.have.property('sources')
   })
@@ -102,10 +102,10 @@ describe('importPast tasks', function () {
     model.scratch = {}
 
     return machine.clear().start().then(success => {
+      /* eslint-disable-next-line no-unused-expressions */
       expect(success).to.be.true
 
       // Verify task state
-      expect(model).to.have.property('bookmarkReady', true)
       expect(model).to.have.property('boundsReady', true)
       expect(model).to.have.property('criteriaDatesReady', true)
       expect(model).to.have.property('dcpBlockRequestReady', true)
@@ -116,6 +116,7 @@ describe('importPast tasks', function () {
       expect(model).to.have.property('ddsCriteriaRequestReady', true)
       expect(model).to.have.property('healthCheckReady', true)
       expect(model).to.have.property('publishReady', true)
+      expect(model).to.have.property('saveBookmarksReady', true)
       expect(model).to.have.property('sourceReady', true)
       expect(model).to.have.property('sourcesReady', true)
       expect(model).to.have.property('stanReady', true)
@@ -136,10 +137,10 @@ describe('importPast tasks', function () {
     model.scratch = {}
 
     return machine.clear().start().then(success => {
+      /* eslint-disable-next-line no-unused-expressions */
       expect(success).to.be.true
 
       // Verify task state
-      expect(model).to.have.property('bookmarkReady', true)
       expect(model).to.have.property('boundsReady', true)
       expect(model).to.have.property('criteriaDatesReady', true)
       expect(model).to.have.property('dcpBlockRequestReady', true)
@@ -150,6 +151,7 @@ describe('importPast tasks', function () {
       expect(model).to.have.property('ddsCriteriaRequestReady', true)
       expect(model).to.have.property('healthCheckReady', true)
       expect(model).to.have.property('publishReady', true)
+      expect(model).to.have.property('saveBookmarksReady', true)
       expect(model).to.have.property('sourceReady', true)
       expect(model).to.have.property('sourcesReady', false)
       expect(model).to.have.property('stanReady', false)
@@ -170,10 +172,10 @@ describe('importPast tasks', function () {
     model.scratch = {}
 
     return machine.clear().start().then(success => {
+      /* eslint-disable-next-line no-unused-expressions */
       expect(success).to.be.true
 
       // Verify task state
-      expect(model).to.have.property('bookmarkReady', true)
       expect(model).to.have.property('boundsReady', true)
       expect(model).to.have.property('criteriaDatesReady', true)
       expect(model).to.have.property('dcpBlockRequestReady', true)
@@ -184,6 +186,7 @@ describe('importPast tasks', function () {
       expect(model).to.have.property('ddsCriteriaRequestReady', true)
       expect(model).to.have.property('healthCheckReady', true)
       expect(model).to.have.property('publishReady', true)
+      expect(model).to.have.property('saveBookmarksReady', true)
       expect(model).to.have.property('sourceReady', true)
       expect(model).to.have.property('sourcesReady', false)
       expect(model).to.have.property('stanReady', false)
@@ -196,8 +199,8 @@ describe('importPast tasks', function () {
       // Verify criteria dates
       expect(model).to.have.nested.property('criteriaDates.since')
       expect(model).to.have.nested.property('criteriaDates.until')
-      assert.equal(model.criteriaDates.since.valueOf(), criteriaDatesBurns.since.valueOf() + 24 * 60 * 60 * 1000)
-      assert.equal(model.criteriaDates.until.valueOf(), criteriaDatesBurns.until.valueOf() + 24 * 60 * 60 * 1000)
+      assert.isAbove(model.criteriaDates.since.valueOf(), criteriaDatesBurns.since.valueOf())
+      assert.isAbove(model.criteriaDates.until.valueOf(), criteriaDatesBurns.until.valueOf())
     })
   })
 
@@ -205,10 +208,10 @@ describe('importPast tasks', function () {
     model.scratch = {}
 
     return machine.clear().start().then(success => {
+      /* eslint-disable-next-line no-unused-expressions */
       expect(success).to.be.true
 
       // Verify task state
-      expect(model).to.have.property('bookmarkReady', true)
       expect(model).to.have.property('boundsReady', true)
       expect(model).to.have.property('criteriaDatesReady', true)
       expect(model).to.have.property('dcpBlockRequestReady', true)
@@ -219,6 +222,7 @@ describe('importPast tasks', function () {
       expect(model).to.have.property('ddsCriteriaRequestReady', true)
       expect(model).to.have.property('healthCheckReady', true)
       expect(model).to.have.property('publishReady', true)
+      expect(model).to.have.property('saveBookmarksReady', true)
       expect(model).to.have.property('sourceReady', true)
       expect(model).to.have.property('sourcesReady', false)
       expect(model).to.have.property('stanReady', false)
@@ -231,8 +235,16 @@ describe('importPast tasks', function () {
       // Verify criteria dates
       expect(model).to.have.nested.property('criteriaDates.since')
       expect(model).to.have.nested.property('criteriaDates.until')
-      assert.equal(model.criteriaDates.since.valueOf(), criteriaDatesChickering.since.valueOf() + 24 * 60 * 60 * 1000)
-      assert.equal(model.criteriaDates.until.valueOf(), criteriaDatesChickering.until.valueOf() + 24 * 60 * 60 * 1000)
+      assert.isAbove(model.criteriaDates.since.valueOf(), criteriaDatesChickering.since.valueOf())
+      assert.isAbove(model.criteriaDates.until.valueOf(), criteriaDatesChickering.until.valueOf())
+    })
+  })
+
+  it('should get saved bookmarks', function () {
+    return main.app.service('/state/docs').get('importRecent-bookmarks').then(doc => {
+      expect(doc).to.have.property('_id', 'importRecent-bookmarks')
+      expect(doc).to.have.nested.property('bookmarks.0.key', 'BEC025B0')
+      expect(doc).to.have.nested.property('bookmarks.0.value').above(0)
     })
   })
 })

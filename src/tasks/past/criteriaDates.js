@@ -15,13 +15,25 @@ module.exports = {
       m.bounds && m.sourceKey
   },
 
-  execute (m) {
-    const start = m.bounds.start.clone()
+  async execute (m, { logger }) {
+    const docId = `${m.key}-bookmarks`
+    let doc
 
+    try {
+      doc = await m.$app.service('/state/docs').get(docId)
+    } catch (err) {
+      if (err.code === 404) {
+        logger.info(`No state doc found for '${docId}'`)
+      } else {
+        logger.error('Get bookmarks error', err)
+      }
+    }
+
+    const start = m.bounds.start.clone()
     let since = start
 
-    if (m.state.bookmarks) {
-      const bookmark = m.state.bookmarks.find(bm => bm.key === m.sourceKey)
+    if (doc && doc.bookmarks) {
+      const bookmark = doc.bookmarks.find(bm => bm.key === m.sourceKey)
 
       if (bookmark) since = moment(bookmark.value).utc().startOf('d').add(1, 'd')
       if (!since.isBetween(m.bounds.start, m.bounds.end, null, '[)')) since = start
@@ -33,7 +45,7 @@ module.exports = {
     }
   },
 
-  assign (m, res, {logger}) {
+  assign (m, res, { logger }) {
     m.criteriaDates = res
 
     logger.info('Criteria dates ready', res)

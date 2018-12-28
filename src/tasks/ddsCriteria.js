@@ -23,7 +23,7 @@ module.exports = {
     }
   },
 
-  assign (m, res, {logger}) {
+  assign (m, res, { logger }) {
     m.ddsCriteria = res
 
     logger.info('DDS criteria ready', res)

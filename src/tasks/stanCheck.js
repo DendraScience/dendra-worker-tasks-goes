@@ -10,11 +10,12 @@ module.exports = {
 
   execute (m) { return true },
 
-  assign (m, res, {logger}) {
+  assign (m, res, { logger }) {
     m.private.stan.removeAllListeners()
 
     delete m.private.stan
     delete m.stanConnected
+    delete m.stanTs
 
     logger.error('NATS Streaming reset')
   }

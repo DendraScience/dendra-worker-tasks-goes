@@ -15,7 +15,7 @@ module.exports = {
       !m.dcpBlockResponse && m.ddsCriteriaResponse
   },
 
-  async execute (m, {logger}) {
+  async execute (m, { logger }) {
     const client = m.private.ddsClient
 
     logger.info('DDS client sending block request')
@@ -36,7 +36,7 @@ module.exports = {
     }
   },
 
-  assign (m, res, {logger}) {
+  assign (m, res, { logger }) {
     m.dcpBlockResponse = res
 
     logger.info('DDS client sent block request')

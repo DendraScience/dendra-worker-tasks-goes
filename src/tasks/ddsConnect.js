@@ -13,7 +13,7 @@ module.exports = {
     delete m.ddsAuthResponse
   },
 
-  async execute (m, {logger}) {
+  async execute (m, { logger }) {
     const client = m.private.ddsClient
 
     logger.info('DDS client connecting', {
@@ -31,7 +31,7 @@ module.exports = {
     }
   },
 
-  assign (m, res, {logger}) {
+  assign (m, res, { logger }) {
     delete m.healthCheckTs
 
     logger.info('DDS client connected')

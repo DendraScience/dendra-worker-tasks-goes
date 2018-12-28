@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = {
-  bookmark: require('./tasks/recent/bookmark'),
   bounds: require('./tasks/recent/bounds'),
   criteriaDates: require('./tasks/recent/criteriaDates'),
   dcpBlockRequest: require('./tasks/dcpBlockRequest'),
@@ -12,6 +11,7 @@ module.exports = {
   ddsCriteriaRequest: require('./tasks/ddsCriteriaRequest'),
   healthCheck: require('./tasks/healthCheck'),
   publish: require('./tasks/publish'),
+  saveBookmarks: require('./tasks/recent/saveBookmarks'),
   source: require('./tasks/source'),
   sources: require('./tasks/sources'),
   stan: require('./tasks/stan'),

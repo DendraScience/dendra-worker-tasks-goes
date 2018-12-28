@@ -5,7 +5,7 @@
 const moment = require('moment')
 
 async function processItem (
-  {context, domsatSeq, logger, message, pubSubject, stan}) {
+  { context, domsatSeq, logger, message, pubSubject, stan }) {
   try {
     /*
       Prepare outbound message and publish.
@@ -22,9 +22,9 @@ async function processItem (
       stan.publish(pubSubject, msgStr, (err, guid) => err ? reject(err) : resolve(guid))
     })
 
-    logger.info('Published', {domsatSeq, pubSubject, guid})
+    logger.info('Published', { domsatSeq, pubSubject, guid })
   } catch (err) {
-    logger.error('Processing error', {domsatSeq, err, message})
+    logger.error('Processing error', { domsatSeq, err, message })
   }
 }
 
@@ -39,9 +39,9 @@ module.exports = {
       m.dcpBlockResponse && (m.dcpBlockResponse.length > 0)
   },
 
-  async execute (m, {logger}) {
-    const {source} = m
-    const {stan} = m.private
+  async execute (m, { logger }) {
+    const { source } = m
+    const { stan } = m.private
     const {
       context,
       pub_to_subject: pubSubject
@@ -51,10 +51,10 @@ module.exports = {
 
     while (m.dcpBlockResponse.length > 0) {
       const dcpMsg = m.dcpBlockResponse.pop() // Get a DCP msg block
-      const {domsatSeq, message} = dcpMsg
-      const {header} = message
+      const { domsatSeq, message } = dcpMsg
+      const { header } = message
 
-      await processItem({context, domsatSeq, logger, message, pubSubject, stan})
+      await processItem({ context, domsatSeq, logger, message, pubSubject, stan })
 
       if (header) {
         const messageTs = moment(header.timeDate).utc()

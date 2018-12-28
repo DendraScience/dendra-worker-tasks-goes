@@ -1,5 +1,6 @@
 const chai = require('chai')
 const feathers = require('feathers')
+const memory = require('feathers-memory')
 const app = feathers()
 
 const tm = require('@dendra-science/task-machine')
@@ -22,11 +23,21 @@ app.set('clients', {
     client: 'test-goes-{key}',
     cluster: 'test-cluster',
     opts: {
-      maxPubAcksInflight: 3,
       uri: 'http://localhost:4222'
     }
   }
 })
+
+// Create an in-memory Feathers service for state docs
+app.use('/state/docs', memory({
+  id: '_id',
+  paginate: {
+    default: 200,
+    max: 2000
+  },
+  store: {
+  }
+}))
 
 global.assert = chai.assert
 global.expect = chai.expect

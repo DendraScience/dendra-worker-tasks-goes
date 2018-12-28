@@ -11,7 +11,7 @@ module.exports = {
       !m.ddsAuthResponse
   },
 
-  async execute (m, {logger}) {
+  async execute (m, { logger }) {
     const cfg = Object.assign({
       auth: {}
     }, m.$app.get('clients').dds, m.props.dds)
@@ -35,7 +35,7 @@ module.exports = {
     }
   },
 
-  assign (m, res, {logger}) {
+  assign (m, res, { logger }) {
     m.ddsAuthResponse = res
 
     logger.info('DDS client authenticated', res)

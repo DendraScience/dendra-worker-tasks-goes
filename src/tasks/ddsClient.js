@@ -5,7 +5,7 @@
 const dds = require('@dendra-science/goes-dds-client')
 
 function handleError (err) {
-  const {logger} = this
+  const { logger } = this
 
   logger.error('DDS client error', err)
 }
@@ -24,8 +24,8 @@ module.exports = {
     return new dds.DDSClient(cfg.opts)
   },
 
-  assign (m, res, {logger}) {
-    res.on('error', handleError.bind({logger}))
+  assign (m, res, { logger }) {
+    res.on('error', handleError.bind({ logger }))
 
     m.private.ddsClient = res
 
